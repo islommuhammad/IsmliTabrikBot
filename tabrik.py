@@ -11,7 +11,7 @@ def generate_doc(first_name):
 
     img = Image.open('1.jpg')
 
-    font = ImageFont.truetype('font.ttf',110) # Загрузка шрифта и установка размера
+    font = ImageFont.truetype('font.ttf',130) # Загрузка шрифта и установка размера
     font_color = (250, 253, 15 ) # Shrift rangi
     first_name_pos = (1100,520) # Координаты первой буквы фамилии на картинке 1.jpg
     #second_name_pos = (505,300) # Координаты первой буквы имени
