@@ -12,7 +12,7 @@ def generate_doc(first_name):
     img = Image.open('1.jpg')
 
     font = ImageFont.truetype('font.ttf',110) # Загрузка шрифта и установка размера
-    font_color = (255,255,255) # Shrift rangi
+    font_color = (250, ) # Shrift rangi
     first_name_pos = (1100,520) # Координаты первой буквы фамилии на картинке 1.jpg
     #second_name_pos = (505,300) # Координаты первой буквы имени
 
@@ -26,6 +26,8 @@ def generate_doc(first_name):
 def repeat_all_message(message):
     
     string = message.text
+    if message.text == '/start':
+        string = ''
     s = string.split(' ')
     if len(s) == 2:
         image = generate_doc(s[0]+' '+ s[1])
