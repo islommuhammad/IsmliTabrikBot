@@ -34,8 +34,10 @@ def repeat_all_message(message):
     string = message.text
     harf_soni = len(string)  # Matn joylashuvini to'g'rilash uchun
     if lotincha(string) :
-        if message.text == '/start':
+        if message.text == '/start' and message.from_user.first_name is not None and message.from_user.last_name is not None:
+            string = message.from_user.first_name+' '+ message.from_user.last_name
             bot.send_message(message.chat.id,'Tabrik yuborish uchun ismni quyidagicha yozish lozim: "Alisher", "Alisherjon" yoki "Alisher G\'iyosovich"')
+        elif message.text == '/start':  
             if message.from_user.last_name is None :
                 string = message.from_user.first_name  # Agar familiya yo'q bo'lsa faqat ismni chiqaradi
             if message.from_user.first_name is None :
