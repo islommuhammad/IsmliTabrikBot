@@ -37,7 +37,8 @@ def repeat_all_message(message):
         if message.text == '/start' and message.from_user.first_name is not None and message.from_user.last_name is not None:
             string = message.from_user.first_name+' '+ message.from_user.last_name
             bot.send_message(message.chat.id,'Tabrik yuborish uchun ismni quyidagicha yozish lozim: "Alisher", "Alisherjon" yoki "Alisher G\'iyosovich"')
-        elif message.text == '/start':  
+        elif message.text == '/start': 
+            bot.send_message(message.chat.id,'Tabrik yuborish uchun ismni quyidagicha yozish lozim: "Alisher", "Alisherjon" yoki "Alisher G\'iyosovich"') 
             if message.from_user.last_name is None :
                 string = message.from_user.first_name  # Agar familiya yo'q bo'lsa faqat ismni chiqaradi
             if message.from_user.first_name is None :
@@ -47,10 +48,12 @@ def repeat_all_message(message):
             image = generate_doc(s[0]+' '+ s[1]+'!', harf_soni)
             image.save('test.jpg')
             bot.send_photo(message.chat.id,photo=open('test.jpg','rb'))
+            bot.send_message(message.chat.id,'Iltimos, ismni kiriting: ')
         elif len(s) ==1:  # Agar Ism bitta so'zdan iborat bo'lsa
             image = generate_doc(s[0]+'!',harf_soni)
             image.save('test.jpg')
             bot.send_photo(message.chat.id,photo=open('test.jpg','rb'))
+            bot.send_message(message.chat.id,'Iltimos, ismni kiriting: ')
         else:
             bot.send_message(message.chat.id,'Tabrik yuborish uchun ismni quyidagicha yozish lozim: "Alisher", "Alisherjon", "Alisher aka" yoki "Alisher G\'iyosovich"')
     else:
