@@ -9,7 +9,7 @@ token = '5325871530:AAHLjUr2MrmNY2YX6TNh5COyW5AuMAOnFJQ'
 bot = telebot.TeleBot(token)
 # Faqat lotin harflarini kiritishni tekshiradigan funksiya
 def lotincha(name):
-    char_set = string.ascii_letters+string.punctuation+' '
+    char_set = string.ascii_letters+'\',`,\ʻ /'
     return all((True if x in char_set else False for x in name))
 
 # 
@@ -36,13 +36,16 @@ def repeat_all_message(message):
     if lotincha(string) :
         if message.text == '/start':
             bot.send_message(message.chat.id,'Tabrik yuborish uchun ismni quyidagicha yozish lozim: "Alisher", "Alisherjon" yoki "Alisher G\'iyosovich"')
-            string = message.from_user.first_name +' '+ message.from_user.last_name
+            if message.from_user.last_name is None :
+                string = message.from_user.first_name  # Agar familiya yo'q bo'lsa faqat ismni chiqaradi
+            if message.from_user.first_name is None :
+                string = message.from_user.last_name #Agar ism yo'q bo'lsa faqat familiyani chiqaradi
         s = string.split(' ')
-        if len(s) == 2:
+        if len(s) == 2:  # Agar Ism ikkita so'zdan iborat bo'lsa
             image = generate_doc(s[0]+' '+ s[1]+'!', harf_soni)
             image.save('test.jpg')
             bot.send_photo(message.chat.id,photo=open('test.jpg','rb'))
-        elif len(s) ==1:
+        elif len(s) ==1:  # Agar Ism bitta so'zdan iborat bo'lsa
             image = generate_doc(s[0]+'!',harf_soni)
             image.save('test.jpg')
             bot.send_photo(message.chat.id,photo=open('test.jpg','rb'))
