@@ -1,11 +1,12 @@
 from email import message
 import string
+import db
 import telebot
 from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFont
 
-token = '5325871530:AAHLjUr2MrmNY2YX6TNh5COyW5AuMAOnFJQ'
+token = '5325871530:AAGGVBAZ8IPQ2zr_DBepkbm868Pwpzyvz6Y'
 bot = telebot.TeleBot(token)
 # Faqat lotin harflarini kiritishni tekshiradigan funksiya
 def lotincha(name):
@@ -13,13 +14,26 @@ def lotincha(name):
     return all((True if x in char_set else False for x in name))
 
 # 
+def subscribers(user_id, user_first_name, user_last_name):
+    print("Bir kishi qo'shildi", user_id, user_first_name)
+
+    mycursor = db.cursor()
+    sql = "INSERT INTO obuna (user_id, first_name, last_name) VALUES (%s, %s, %s)"
+    val = (user_id, user_first_name, user_last_name)
+    mycursor.execute(sql, val)
+
+    db.commit()
+
+    print(mycursor.rowcount, "record inserted.")
+
+
 def generate_doc(first_name,harf_soni):
 
     img = Image.open('1.jpg')
     joylashuv = harf_soni*15  # Matn joylashuvini to'g'rilash uchun
-    font = ImageFont.truetype('font.ttf',130) # Shriftni va yoziv o'lchamini sozlaydi
-    font_color = (250, 253, 15 ) # Shrift rangi
-    first_name_pos = (1350-joylashuv,520) # Ismning birinchi harfi koordinatalarini belgilaydi
+    font = ImageFont.truetype('font.ttf',330) # Shriftni va yoziv o'lchamini sozlaydi
+    font_color = (50, 35, 113 ) # Shrift rangi
+    first_name_pos = (1000-joylashuv,450) # Ismning birinchi harfi koordinatalarini belgilaydi
     #second_name_pos = (505,300) # 
 
     drawing = ImageDraw.Draw(img)
@@ -37,23 +51,25 @@ def repeat_all_message(message):
         if message.text == '/start' and message.from_user.first_name is not None and message.from_user.last_name is not None:
             string = message.from_user.first_name+' '+ message.from_user.last_name
             bot.send_message(message.chat.id,'Tabrik yuborish uchun ismni quyidagicha yozish lozim: "Alisher", "Alisherjon" yoki "Alisher G\'iyosovich"')
+            subscribers(message.chat.id, message.from_user.first_name, message.from_user.last_name)
         elif message.text == '/start': 
             bot.send_message(message.chat.id,'Tabrik yuborish uchun ismni quyidagicha yozish lozim: "Alisher", "Alisherjon" yoki "Alisher G\'iyosovich"') 
             if message.from_user.last_name is None :
                 string = message.from_user.first_name  # Agar familiya yo'q bo'lsa faqat ismni chiqaradi
             if message.from_user.first_name is None :
                 string = message.from_user.last_name #Agar ism yo'q bo'lsa faqat familiyani chiqaradi
+            subscribers(message.chat.id, message.from_user.first_name, message.from_user.last_name)
         s = string.split(' ')
         if len(s) == 2:  # Agar Ism ikkita so'zdan iborat bo'lsa
             image = generate_doc(s[0]+' '+ s[1]+'!', harf_soni)
             image.save('test.jpg')
             bot.send_photo(message.chat.id,photo=open('test.jpg','rb'))
-            bot.send_message(message.chat.id,'Iltimos, ismni kiriting: ')
+            bot.send_message(message.chat.id,'Biror bir yaqiningizni tabriklamoqchi bo\'lsangiz uning ismini pastga 👇 kiriting:  ')
         elif len(s) ==1:  # Agar Ism bitta so'zdan iborat bo'lsa
             image = generate_doc(s[0]+'!',harf_soni)
             image.save('test.jpg')
             bot.send_photo(message.chat.id,photo=open('test.jpg','rb'))
-            bot.send_message(message.chat.id,'Iltimos, ismni kiriting: ')
+            bot.send_message(message.chat.id,'Biror bir yaqiningizni tabriklamoqchi bo\'lsangiz uning ismini pastga 👇 kiriting: ')
         else:
             bot.send_message(message.chat.id,'Tabrik yuborish uchun ismni quyidagicha yozish lozim: "Alisher", "Alisherjon", "Alisher aka" yoki "Alisher G\'iyosovich"')
     else:
