@@ -62,12 +62,14 @@ def generate_doc(first_name,harf_soni):
 
 @bot.message_handler(content_types=['text'])
 def repeat_all_message(message):
-    if message.text == '/obunachilar':
-        mycursor2 = db.mydb.cursor()
-        mycursor2.execute('SELECT * FROM obuna')
+    # Botga obuna bo'lgan foydalanuvchilar sonini chiqarish
+    # if message.text == '/obunachilar':
+    #     mycursor2 = db.mydb.cursor()
+    #     mycursor2.execute("SELECT * FROM obuna")
             
-        print('Botga obuna bo\'lganlar soni: '+ str(mycursor2.rowcount))
-        #bot.send_message(3197156,'Botga obuna bo\'lganlar soni: '+ number_of_rows)
+    #     print('Botga obuna bo\'lganlar soni: '+ str(mycursor2.rowcount))
+        #bot.send_message(3197156,'Botga obuna bo\'lganlar soni: '+ str(mycursor2.rowcount))
+        
     string = message.text
     harf_soni = len(string)  # Matn joylashuvini to'g'rilash uchun
     if lotincha(string) :
