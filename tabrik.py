@@ -18,7 +18,7 @@ def subscribers(user_id, user_first_name, user_last_name):
 
     try:
         print("Bir kishi qo'shildi", user_id, user_first_name)
-        bot.send_message(-321996347,'Bir kishi obuna bo\'ldi. \n\n  User ID: '+ user_id + '\n Ismi: '+ user_first_name + '\n Familiyasi: '+ user_last_name )
+        bot.send_message(-321996347,'Bir kishi obuna bo\'ldi. \n\n Ismi: '+ user_first_name + '\n Familiyasi: '+ user_last_name )
         mycursor = db.mydb.cursor()
         sql = "INSERT INTO obuna (user_id, first_name, last_name) VALUES (%s, %s, %s)"
         val = (user_id, user_first_name, user_last_name)
