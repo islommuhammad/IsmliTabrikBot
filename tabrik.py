@@ -27,8 +27,8 @@ def subscribers(user_id, user_first_name, user_last_name):
         db.mydb.commit()
 
         print(mycursor.rowcount, "record inserted.")
-    except: 
-        print("Bu foydalanuvchi allaqachon qoshilgan!")
+    except OSError as err:
+        print("OS error: {0}".format(err))
 
 
 def generate_doc(first_name,harf_soni):
