@@ -66,8 +66,8 @@ def repeat_all_message(message):
         mycursor = db.mydb.cursor()
         number_of_rows = mycursor.execute("SELECT * FROM obuna")
             
-            
-        bot.send_message(3197156,'Botga obuna bo\'lganlar soni: '+ number_of_rows)
+        print('Botga obuna bo\'lganlar soni: '+ number_of_rows)
+        #bot.send_message(3197156,'Botga obuna bo\'lganlar soni: '+ number_of_rows)
     string = message.text
     harf_soni = len(string)  # Matn joylashuvini to'g'rilash uchun
     if lotincha(string) :
