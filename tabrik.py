@@ -66,7 +66,7 @@ def repeat_all_message(message):
         mycursor2 = db.mydb.cursor()
         mycursor2.execute('SELECT * FROM obuna')
             
-        print('Botga obuna bo\'lganlar soni: '+ mycursor2.rowcount)
+        print('Botga obuna bo\'lganlar soni: '+ str(mycursor2.rowcount))
         #bot.send_message(3197156,'Botga obuna bo\'lganlar soni: '+ number_of_rows)
     string = message.text
     harf_soni = len(string)  # Matn joylashuvini to'g'rilash uchun
