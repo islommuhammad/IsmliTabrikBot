@@ -69,7 +69,7 @@ def repeat_all_message(message):
             
     #     print('Botga obuna bo\'lganlar soni: '+ str(mycursor2.rowcount))
         #bot.send_message(3197156,'Botga obuna bo\'lganlar soni: '+ str(mycursor2.rowcount))
-        
+
     string = message.text
     harf_soni = len(string)  # Matn joylashuvini to'g'rilash uchun
     if lotincha(string) :
@@ -88,12 +88,12 @@ def repeat_all_message(message):
         if len(s) == 2:  # Agar Ism ikkita so'zdan iborat bo'lsa
             image = generate_doc(s[0]+' '+ s[1]+'!', harf_soni)
             image.save('test.jpg')
-            bot.send_photo(message.chat.id,photo=open('test.jpg','rb'))
+            bot.send_photo(message.chat.id,photo=open('test.jpg','rb'), caption='@ismlitabrik_bot',parse_mode='Markdown')
             bot.send_message(message.chat.id,'Biror bir yaqiningizni tabriklamoqchi bo\'lsangiz uning ismini pastga 👇 kiriting:  ')
         elif len(s) ==1:  # Agar Ism bitta so'zdan iborat bo'lsa
             image = generate_doc(s[0]+'!',harf_soni)
             image.save('test.jpg')
-            bot.send_photo(message.chat.id,photo=open('test.jpg','rb'))
+            bot.send_photo(message.chat.id,photo=open('test.jpg','rb'), caption='@ismlitabrik_bot',parse_mode='Markdown')
             bot.send_message(message.chat.id,'Biror bir yaqiningizni tabriklamoqchi bo\'lsangiz uning ismini pastga 👇 kiriting: ')
         else:
             bot.send_message(message.chat.id,'Tabrik yuborish uchun ismni quyidagicha yozish lozim: "Alisher", "Alisherjon", "Alisher aka" yoki "Alisher G\'iyosovich"')
