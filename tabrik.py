@@ -22,7 +22,7 @@ def subscribers(user_id, user_first_name, user_last_name):
     val = (user_id, user_first_name, user_last_name)
     mycursor.execute(sql, val)
 
-    db.commit()
+    db.mydb.commit()
 
     print(mycursor.rowcount, "record inserted.")
 
