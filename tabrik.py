@@ -63,10 +63,10 @@ def generate_doc(first_name,harf_soni):
 @bot.message_handler(content_types=['text'])
 def repeat_all_message(message):
     if message.text == '/obunachilar':
-        mycursor = db.mydb.cursor()
-        number_of_rows = mycursor.execute("SELECT * FROM obuna")
+        mycursor2 = db.mydb.cursor()
+        mycursor2.execute('SELECT * FROM obuna')
             
-        print('Botga obuna bo\'lganlar soni: '+ number_of_rows)
+        print('Botga obuna bo\'lganlar soni: '+ mycursor2.rowcount)
         #bot.send_message(3197156,'Botga obuna bo\'lganlar soni: '+ number_of_rows)
     string = message.text
     harf_soni = len(string)  # Matn joylashuvini to'g'rilash uchun
