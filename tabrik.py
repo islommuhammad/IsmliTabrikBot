@@ -17,16 +17,28 @@ def lotincha(name):
 def subscribers(user_id, user_first_name, user_last_name):
 
     try:
-        print("Bir kishi qo'shildi", user_id, user_first_name)
-        bot.send_message(3197156,'Bir kishi obuna bo\'ldi. \n\n Ismi: '+ user_first_name + '\n Familiyasi: '+ user_last_name )
-        mycursor = db.mydb.cursor()
-        sql = "INSERT INTO obuna (user_id, first_name, last_name) VALUES (%s, %s, %s)"
-        val = (user_id, user_first_name, user_last_name)
-        mycursor.execute(sql, val)
+        if user_last_name is not None:
+            print("Bir kishi qo'shildi", user_id, user_first_name)
+            bot.send_message(3197156,'Bir kishi obuna bo\'ldi. \n\n Ismi: '+ user_first_name + '\n Familiyasi: '+ user_last_name )
+            mycursor = db.mydb.cursor()
+            sql = "INSERT INTO obuna (user_id, first_name, last_name) VALUES (%s, %s, %s)"
+            val = (user_id, user_first_name, user_last_name)
+            mycursor.execute(sql, val)
 
-        db.mydb.commit()
+            db.mydb.commit()
 
-        print(mycursor.rowcount, "record inserted.")
+            print(mycursor.rowcount, "record inserted.")
+        else: 
+            print("Bir kishi qo'shildi", user_id, user_first_name, "\n Familiyasi yuq")
+            bot.send_message(3197156,'Bir kishi obuna bo\'ldi. \n\n Ismi: '+ user_first_name )
+            mycursor = db.mydb.cursor()
+            sql = "INSERT INTO obuna (user_id, first_name) VALUES (%s, %s)"
+            val = (user_id, user_first_name)
+            mycursor.execute(sql, val)
+
+            db.mydb.commit()
+
+            print(mycursor.rowcount, "record inserted.")
     except OSError as err:
         print("OS error: {0}".format(err))
 
