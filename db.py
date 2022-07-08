@@ -1,6 +1,6 @@
 import mysql.connector
 mydb = mysql.connector.connect(
-  host="172.20.20.22",
+  host="localhost",
   user="suvchi",
   password="water",
   database="waterLevel"
